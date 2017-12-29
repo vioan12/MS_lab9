@@ -1,5 +1,3 @@
-import java.util.AbstractQueue;
-import java.util.Iterator;
 import java.util.PriorityQueue;
 
 /**
@@ -29,5 +27,20 @@ public class Ghiseu
     protected Client Head_coada_clienti()
     {
         return coada_clienti.peek();
+    }
+    protected void HeadDowngrade_coada_clienti()
+    {
+        Client head,tempclient;
+        head=Head_coada_clienti();
+        Pop_coada_clienti();
+        tempclient=Head_coada_clienti();
+        Pop_coada_clienti();
+        Push_coada_clienti(tempclient);
+        Push_coada_clienti(head);
+        for(int i=0;i<coada_clienti.size()-2;i++){
+            tempclient=Head_coada_clienti();
+            Pop_coada_clienti();
+            Push_coada_clienti(tempclient);
+        }
     }
 }
