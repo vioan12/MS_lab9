@@ -16,9 +16,9 @@ public class Ghiseu
             operatiuni[i]=valueoflisa_operatiuni[i];
         }
     }
-    protected void Push_coada_clienti(Client valueofclient)
+    protected void Push_coada_clienti(Client client)
     {
-        coada_clienti.add(valueofclient);
+        coada_clienti.add(client);
     }
     protected void Pop_coada_clienti()
     {
