@@ -3,14 +3,19 @@
  */
 public class TimpConvert
 {
-    static int toInt(String timp)
+    static public int delaytotimpdeschidere(String timp)
     {
-        int orabaza,ora;
-        int minutebaza,minute;
-        orabaza = Integer.parseInt(String.valueOf(AgentiePostala.Get_timpdeschidere().charAt(0))+String.valueOf(AgentiePostala.Get_timpdeschidere().charAt(1)));
+        return (toInt(AgentiePostala.timpdeschidere)-toInt(timp));
+    }
+    static public int toInt(String timp)
+    {
+        int ora,minute;
         ora = Integer.parseInt(String.valueOf(timp.charAt(0))+String.valueOf(timp.charAt(1)));
-        minutebaza = Integer.parseInt(String.valueOf(AgentiePostala.Get_timpdeschidere().charAt(3))+String.valueOf(AgentiePostala.Get_timpdeschidere().charAt(4)));
         minute = Integer.parseInt(String.valueOf(timp.charAt(3))+String.valueOf(timp.charAt(4)));
-        return ((ora-orabaza)*60+(minute-minutebaza));
+        return (ora*60+minute);
+    }
+    static public String toStr(int timp)
+    {
+
     }
 }
