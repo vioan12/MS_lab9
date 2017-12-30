@@ -16,6 +16,9 @@ public class TimpConvert
     }
     static public String toStr(int timp)
     {
-
+        String String_temp1,String_temp2;
+        String_temp1 = String.valueOf(timp / 60);
+        String_temp2 = String.valueOf(timp % 60);
+        return (String_temp1+":"+String_temp2);
     }
 }
