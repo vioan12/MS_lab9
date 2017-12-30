@@ -16,6 +16,10 @@ public class Ghiseu
             operatiuni[i]=valueoflisa_operatiuni[i];
         }
     }
+    protected int Get_sizecoada_clienti()
+    {
+        return coada_clienti.size();
+    }
     protected void Push_coada_clienti(Client client)
     {
         coada_clienti.add(client);
@@ -30,17 +34,27 @@ public class Ghiseu
     }
     protected void HeadDowngrade_coada_clienti()
     {
-        Client head,tempclient;
-        head=Head_coada_clienti();
+        Client head, tempclient;
+        head = Head_coada_clienti();
         Pop_coada_clienti();
-        tempclient=Head_coada_clienti();
+        tempclient = Head_coada_clienti();
         Pop_coada_clienti();
         Push_coada_clienti(tempclient);
         Push_coada_clienti(head);
-        for(int i=0;i<coada_clienti.size()-2;i++){
-            tempclient=Head_coada_clienti();
+        for (int i = 0; i < coada_clienti.size() - 2; i++) {
+            tempclient = Head_coada_clienti();
             Pop_coada_clienti();
             Push_coada_clienti(tempclient);
         }
+    }
+    protected boolean contine_operatiune_id(int id)
+    {
+        boolean sw=false;
+        for(int i=0; (i<operatiuni.length)&&(sw==false); i++){
+            if(operatiuni[i].Get_id()==id){
+                sw=true;
+            }
+        }
+        return sw;
     }
 }
