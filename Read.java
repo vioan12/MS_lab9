@@ -6,7 +6,7 @@ import java.io.FileReader;
  */
 public class Read
 {
-    void console()
+    public static void console()
     {
         FileReader in;
         BufferedReader br;
