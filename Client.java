@@ -4,6 +4,9 @@
 public class Client
 {
     private String nume;
+    private TimpOperatiune[] operatiuni;
+    private int timpsosire;
+    private int timpplecare;
     class TimpOperatiune
     {
         private Operatiune operatiune;
@@ -48,9 +51,6 @@ public class Client
         }
 
     }
-    private TimpOperatiune[] operatiuni;
-    private int timpsosire;
-    private int timpplecare;
 
     Client(String valueofnume, int valueoftimpsosire, Operatiune[] valueoflista_operatiuni)
     {
