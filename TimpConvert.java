@@ -5,11 +5,11 @@ public class TimpConvert
 {
     static public int delaytotimpdeschidere(String timp)
     {
-        return (toInt(AgentiePostala.timpdeschidere)-toInt(timp));
+        return (toInt(timp)-toInt(AgentiePostala.timpdeschidere));
     }
     static public int delaytotimpdeschidere(int timp)
     {
-        return (toInt(AgentiePostala.timpdeschidere)-timp);
+        return (timp-toInt(AgentiePostala.timpdeschidere));
     }
     static public int toInt(String timp)
     {
