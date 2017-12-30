@@ -7,6 +7,10 @@ public class TimpConvert
     {
         return (toInt(AgentiePostala.timpdeschidere)-toInt(timp));
     }
+    static public int delaytotimpdeschidere(int timp)
+    {
+        return (toInt(AgentiePostala.timpdeschidere)-timp);
+    }
     static public int toInt(String timp)
     {
         int ora,minute;
