@@ -6,13 +6,16 @@ import java.util.Iterator;
  */
 public class AgentiePostala
 {
-    private static String timpdeschidere;
+    public static String timpdeschidere,timpinchidere;
+    public static Operatiune[] lista_operatiuni;
     private HashMap<Integer, Ghiseu> lista_ghisee;
 
-    AgentiePostala(String valueoftimpdeschidere)
+    AgentiePostala(String valueoftimpdeschidere, String valueoftimpinchidere)
     {
         timpdeschidere=valueoftimpdeschidere;
+        timpinchidere=valueoftimpinchidere;
         lista_ghisee= new HashMap<Integer, Ghiseu>();
+
     }
     protected static String Get_timpdeschidere()
     {
