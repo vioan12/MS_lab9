@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
@@ -18,7 +17,7 @@ public class Read
         try {
             in = new FileReader("PostaRomana.txt");
             br = new BufferedReader(in);
-            Simulare.PostaRomana= new AgentiePostala(br.readLine());
+            Simulare.PostaRomana= new AgentiePostala(br.readLine(),br.readLine());
             int_temp = Integer.parseInt(br.readLine());
             Operatiune_temp = new Operatiune[int_temp];
             for(int i=0; i<Operatiune_temp.length; i++){
@@ -28,6 +27,7 @@ public class Read
                 int_temp3 = Integer.parseInt(br.readLine());
                 Operatiune_temp[i]=new Operatiune(int_temp, String_temp, int_temp2, int_temp3);
             }
+            AgentiePostala.lista_operatiuni=Operatiune_temp;
             int_temp = Integer.parseInt(br.readLine()); //nrGhisee
             for(int i=0; i<int_temp; i++){
                 int_temp2 = Integer.parseInt(br.readLine()); //IDGhiseu
