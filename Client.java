@@ -7,7 +7,7 @@ public class Client
     private TimpOperatiune[] operatiuni;
     private int timpsosire;
     private int timpplecare;
-    class TimpOperatiune
+    protected class TimpOperatiune
     {
         private Operatiune operatiune;
         private int timpexec;
@@ -69,6 +69,14 @@ public class Client
     protected int Get_timpplecare()
     {
         return this.timpplecare;
+    }
+    protected TimpOperatiune Get_operatiune_index(int index)
+    {
+        return operatiuni[index];
+    }
+    protected int Get_nroperatiuni()
+    {
+        return operatiuni.length;
     }
     protected void Set_timpplecare(int valueoftimpplecare)
     {
