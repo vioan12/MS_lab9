@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 /**
  * Created by ioan on 12/29/17.
@@ -14,7 +15,7 @@ public class AgentiePostala
     {
         timpdeschidere=valueoftimpdeschidere;
         timpinchidere=valueoftimpinchidere;
-        lista_ghisee= new HashMap<Integer, Ghiseu>();
+        lista_ghisee= new LinkedHashMap<Integer, Ghiseu>();
 
     }
     protected static String Get_timpdeschidere()
@@ -37,5 +38,34 @@ public class AgentiePostala
         } else {
             return null;
         }
+    }
+    protected int Get_nrghisee()
+    {
+        return lista_ghisee.size();
+    }
+    protected int Get_idGhisu(Ghiseu ghiseu)
+    {
+        for (HashMap.Entry<Integer, Ghiseu> e : lista_ghisee.entrySet()) {
+            int key = e.getKey();
+            Ghiseu value = e.getValue();
+            if(ghiseu.equals(value)){
+                return key;
+            }
+        }
+        return -1;
+    }
+    protected boolean ClientOperatiuneInDesfasurare (Client client)
+    {
+        Iterator itr=lista_ghisee.entrySet().iterator();
+        while (itr.hasNext()) {
+            Ghiseu Ghiseu_temp = (Ghiseu) itr.next();
+            if (Ghiseu_temp.Head_coada_clienti().equals(client)) {
+                for (int i = 0; i < Ghiseu_temp.Head_coada_clienti().Get_nroperatiuni(); i++) {
+                    if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare()==true)
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 }
