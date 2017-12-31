@@ -33,16 +33,16 @@ public class Simulare
             Clienti_temp[i]= GC.generare();
         }
         clock=0;
-        while (clock<=TimpConvert.toInt(PostaRomana.timpinchidere)){
-            for(int i=0; i<Clienti_temp.length; i++){
-                for(int j=0; j<Clienti_temp[i].Get_nroperatiuni(); j++){
-                    int index=0;
-                    int min=MAX_VALUE;
+        while (clock<=TimpConvert.toInt(PostaRomana.timpinchidere)) {
+            for (int i = 0; i < Clienti_temp.length; i++) {
+                for (int j = 0; j < Clienti_temp[i].Get_nroperatiuni(); j++) {
+                    int index = 0;
+                    int min = MAX_VALUE;
                     Iterator<Ghiseu> iterator = PostaRomana.Get_lista_ghisee();
-                    while (iterator.hasNext()){
+                    while (iterator.hasNext()) {
                         Ghiseu_temp = iterator.next();
-                        if(Ghiseu_temp.contine_operatiune_id(Clienti_temp[i].Get_operatiune_index(j).Get_operatiune().Get_id())==true){
-                            if(Ghiseu_temp.Get_sizecoada_clienti()<min){
+                        if (Ghiseu_temp.contine_operatiune_id(Clienti_temp[i].Get_operatiune_index(j).Get_operatiune().Get_id()) == true) {
+                            if (Ghiseu_temp.Get_sizecoada_clienti() < min) {
                                 min = Ghiseu_temp.Get_sizecoada_clienti();
                                 index = PostaRomana.Get_idGhisu(Ghiseu_temp);
                             }
@@ -53,32 +53,44 @@ public class Simulare
             }
 
             Iterator<Ghiseu> iterator = PostaRomana.Get_lista_ghisee();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 Ghiseu_temp = iterator.next();
-                if(PostaRomana.ClientOperatiuneInDesfasurare(Ghiseu_temp.Head_coada_clienti())==false){ //Clientul nu are nici o operatiune in desfasurare
-                    boolean sw=true;
-                    for(int i=0; i<Ghiseu_temp.Head_coada_clienti().Get_nroperatiuni(); i++){
-                        if(Ghiseu_temp.contine_operatiune_id(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_id())==true){ //Giseul poate efectua operatiunea i a Clientului
-                            if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_executata()==false){ //Operatiunea i nu a fost executata
-                                sw=false;
-                                if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare()==false){ //Operatiunea i nu este in desfasurare
-                                    Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Desfasurareoperatiune();
+                boolean sw;
+                sw = true;
+                for (int i = 0; i < Ghiseu_temp.Head_coada_clienti().Get_nroperatiuni(); i++) {
+                    if (Ghiseu_temp.contine_operatiune_id(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_id()) == true) { //Ghiseul poate efectua operatiunea i a Clientului
+                        if (Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_executata() == false) { //Operatiunea i nu a fost executata
+                            sw = false;
+                            if (Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare() == false) { //Operatiunea i nu este in desfasurare
+                                if (PostaRomana.ClientOperatiuniInDesfasurarelaalteGhisee(Ghiseu_temp.Head_coada_clienti(), Ghiseu_temp) == false) { //Clientul nu are nici o operatiune in desfasurare la alte Ghisee
+                                    Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Desfasurareoperatiune(PostaRomana.Get_idGhisu(Ghiseu_temp),clock);
                                     Generator G_timpdesfasurareoperatiune;
-                                    G_timpdesfasurareoperatiune = new StdGenerator(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmax() - Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin()+1);
-                                    Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Set_timpexec(G_timpdesfasurareoperatiune.next()+Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin());
+                                    G_timpdesfasurareoperatiune = new StdGenerator(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmax() - Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin() + 1);
+                                    Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Set_duratatimpexec((G_timpdesfasurareoperatiune.next() + Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin()));
                                 } else {
-                                    //if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).)
+                                    Ghiseu_temp.HeadDowngrade_coada_clienti();
                                 }
-
                             } else {
-
+                                if(PostaRomana.Get_idGhisu(Ghiseu_temp)==Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_id_Ghiseu()){ //Operatiunea este in desfasurare la Ghiseul curent
+                                    if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_timpstartexec() + Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_duratatimpexec() <= clock){
+                                    } else {
+                                        Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Executataoperatiune();
+                                        Ghiseu_temp.Pop_coada_clienti();
+                                    }
+                                } else {
+                                    Ghiseu_temp.Pop_coada_clienti();
+                                }
                             }
+                        } else {
+                            Ghiseu_temp.Pop_coada_clienti();
                         }
                     }
-                    if(sw==true){ //Toate operatiunile au fost executate
-                        Ghiseu_temp.Pop_coada_clienti();
-                    }
+                }
+                if (sw == true) { //Toate operatiunile au fost executate
+                    Ghiseu_temp.Pop_coada_clienti();
+                }
             }
+
             clock++;
         }
     }
