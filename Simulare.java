@@ -75,14 +75,9 @@ public class Simulare
                                     if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_timpstartexec() + Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_duratatimpexec() <= clock){
                                     } else {
                                         Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Executataoperatiune();
-                                        Ghiseu_temp.Pop_coada_clienti();
                                     }
-                                } else {
-                                    Ghiseu_temp.Pop_coada_clienti();
                                 }
                             }
-                        } else {
-                            Ghiseu_temp.Pop_coada_clienti();
                         }
                     }
                 }
@@ -90,7 +85,11 @@ public class Simulare
                     Ghiseu_temp.Pop_coada_clienti();
                 }
             }
-
+            int_temp=G.next()+1;
+            Clienti_temp = new Client[int_temp];
+            for(int i=0;i<=Clienti_temp.length; i++){
+                Clienti_temp[i]= GC.generare();
+            }
             clock++;
         }
     }
