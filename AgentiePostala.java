@@ -54,15 +54,17 @@ public class AgentiePostala
         }
         return -1;
     }
-    protected boolean ClientOperatiuneInDesfasurare (Client client)
+    protected boolean ClientOperatiuniInDesfasurarelaalteGhisee (Client client, Ghiseu ghiseu)
     {
         Iterator itr=lista_ghisee.entrySet().iterator();
         while (itr.hasNext()) {
             Ghiseu Ghiseu_temp = (Ghiseu) itr.next();
-            if (Ghiseu_temp.Head_coada_clienti().equals(client)) {
-                for (int i = 0; i < Ghiseu_temp.Head_coada_clienti().Get_nroperatiuni(); i++) {
-                    if(Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare()==true)
-                        return true;
+            if(!Ghiseu_temp.equals(ghiseu)) {
+                if (Ghiseu_temp.Head_coada_clienti().equals(client)) {
+                    for (int i = 0; i < Ghiseu_temp.Head_coada_clienti().Get_nroperatiuni(); i++) {
+                        if (Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare() == true)
+                            return true;
+                    }
                 }
             }
         }
