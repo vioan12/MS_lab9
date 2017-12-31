@@ -10,23 +10,29 @@ public class Client
     protected class TimpOperatiune
     {
         private Operatiune operatiune;
-        private int timpexec;
+        private int timpstartexec;
+        private int duratatimpexec;
         private boolean sw_executata,sw_desfasurare;
+        private int id_Ghiseu;
 
         TimpOperatiune(Operatiune valueofoperatiune)
         {
             this.operatiune=valueofoperatiune;
-            timpexec=0;
+            duratatimpexec=0;
             sw_executata=false;
             sw_desfasurare=false;
         }
-        protected void Set_timpexec(int valueoftimpexec)
+        protected void Set_duratatimpexec(int valueofduratatimpexec)
         {
-            this.timpexec=valueoftimpexec;
+            this.duratatimpexec=valueofduratatimpexec;
         }
-        protected int Get_timpexec()
+        protected int Get_duratatimpexec()
         {
-            return this.timpexec;
+            return this.duratatimpexec;
+        }
+        protected int Get_timpstartexec()
+        {
+            return this.timpstartexec;
         }
         protected Operatiune Get_operatiune()
         {
@@ -35,6 +41,10 @@ public class Client
         protected boolean Get_sw_executata()
         {
             return this.sw_executata;
+        }
+        protected int Get_id_Ghiseu()
+        {
+            return this.id_Ghiseu;
         }
         protected void Executataoperatiune()
         {
@@ -45,11 +55,12 @@ public class Client
         {
             return this.sw_desfasurare;
         }
-        protected void Desfasurareoperatiune()
+        protected void Desfasurareoperatiune(int id, int valueoftimpstartexec)
         {
             this.sw_desfasurare=true;
+            this.id_Ghiseu=id;
+            this.timpstartexec=valueoftimpstartexec;
         }
-
     }
 
     Client(String valueofnume, int valueoftimpsosire, Operatiune[] valueoflista_operatiuni)
