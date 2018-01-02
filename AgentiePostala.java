@@ -43,17 +43,6 @@ public class AgentiePostala
     {
         return lista_ghisee.size();
     }
-    protected int Get_idGhisu(Ghiseu ghiseu)
-    {
-        for (HashMap.Entry<Integer, Ghiseu> e : lista_ghisee.entrySet()) {
-            int key = e.getKey();
-            Ghiseu value = e.getValue();
-            if(ghiseu.equals(value)){
-                return key;
-            }
-        }
-        return -1;
-    }
     protected boolean ClientOperatiuniInDesfasurarelaalteGhisee (Client client, Ghiseu ghiseu)
     {
         Iterator itr=lista_ghisee.entrySet().iterator();
