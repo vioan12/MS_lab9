@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -6,11 +7,13 @@ import java.util.PriorityQueue;
 public class Ghiseu
 {
     private PriorityQueue<Client> coada_clienti;
+    Comparator<Client> comparator;
     private Operatiune[] operatiuni;
 
     Ghiseu(Operatiune[] valueoflisa_operatiuni)
     {
-        coada_clienti= new PriorityQueue<Client>();
+        comparator = new ClientComparator();
+        coada_clienti= new PriorityQueue<Client>(comparator);
         operatiuni = new Operatiune[valueoflisa_operatiuni.length];
         for(int i=0; i<operatiuni.length; i++) {
             operatiuni[i]=valueoflisa_operatiuni[i];
