@@ -92,7 +92,7 @@ public class Simulare
             }
             int_temp=G.next()+1;
             Clienti_temp = new Client[int_temp];
-            for(int i=0;i<=Clienti_temp.length; i++){
+            for(int i=0;i< Clienti_temp.length; i++){
                 Clienti_temp[i]= GC.generare();
             }
             clock++;
