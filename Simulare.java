@@ -52,7 +52,9 @@ public class Simulare
                             }
                         }
                     }
-                    PostaRomana.Get_ghisu(index).Push_coada_clienti(Clienti_temp[i]);
+                    if(PostaRomana.Get_ghisu(index)!=null) {
+                        PostaRomana.Get_ghisu(index).Push_coada_clienti(Clienti_temp[i]);
+                    }
                 }
             }
             Iterator iterator = PostaRomana.Get_lista_ghisee();
