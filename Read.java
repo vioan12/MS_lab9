@@ -35,7 +35,7 @@ public class Read
                 Operatiune_temp2 = new Operatiune[int_temp3];
                 for(int j=0; j<int_temp3; j++){
                     int_temp4 = Integer.parseInt(br.readLine()); //IDOperatiune
-                    for(int k=0;k<Operatiune_temp.length;i++) {
+                    for(int k=0;k<Operatiune_temp.length;k++) {
                         if(int_temp4==Operatiune_temp[k].Get_id()){
                             Operatiune_temp2[j]=Operatiune_temp[k];
                         }
