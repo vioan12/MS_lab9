@@ -53,10 +53,12 @@ public class AgentiePostala
             pair = (Map.Entry)iterator.next();
             Ghiseu_temp_value = (Ghiseu)pair.getValue();
             if(!Ghiseu_temp_value.equals(ghiseu)) {
-                if (Ghiseu_temp_value.Head_coada_clienti().equals(client)) {
-                    for (int i = 0; i < Ghiseu_temp_value.Head_coada_clienti().Get_nroperatiuni(); i++) {
-                        if (Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare() == true)
-                            return true;
+                if (Ghiseu_temp_value.Head_coada_clienti() != null) {
+                    if (Ghiseu_temp_value.Head_coada_clienti().equals(client)) {
+                        for (int i = 0; i < Ghiseu_temp_value.Head_coada_clienti().Get_nroperatiuni(); i++) {
+                            if (Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare() == true)
+                                return true;
+                        }
                     }
                 }
             }
