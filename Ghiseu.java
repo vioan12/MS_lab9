@@ -37,17 +37,11 @@ public class Ghiseu
     }
     protected void HeadDowngrade_coada_clienti()
     {
-        Client head, tempclient;
-        head = Head_coada_clienti();
-        Pop_coada_clienti();
-        tempclient = Head_coada_clienti();
-        Pop_coada_clienti();
-        Push_coada_clienti(tempclient);
-        Push_coada_clienti(head);
-        for (int i = 0; i < coada_clienti.size() - 2; i++) {
-            tempclient = Head_coada_clienti();
+        if(coada_clienti.size()>1) {
+            Client head;
+            head = Head_coada_clienti();
             Pop_coada_clienti();
-            Push_coada_clienti(tempclient);
+            Push_coada_clienti(head);
         }
     }
     protected boolean contine_operatiune_id(int id)
