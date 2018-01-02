@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by ioan on 12/29/17.
@@ -45,13 +46,16 @@ public class AgentiePostala
     }
     protected boolean ClientOperatiuniInDesfasurarelaalteGhisee (Client client, Ghiseu ghiseu)
     {
-        Iterator itr=lista_ghisee.entrySet().iterator();
-        while (itr.hasNext()) {
-            Ghiseu Ghiseu_temp = (Ghiseu) itr.next();
-            if(!Ghiseu_temp.equals(ghiseu)) {
-                if (Ghiseu_temp.Head_coada_clienti().equals(client)) {
-                    for (int i = 0; i < Ghiseu_temp.Head_coada_clienti().Get_nroperatiuni(); i++) {
-                        if (Ghiseu_temp.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare() == true)
+        Ghiseu Ghiseu_temp_value;
+        Map.Entry pair;
+        Iterator iterator = Get_lista_ghisee();
+        while (iterator.hasNext()) {
+            pair = (Map.Entry)iterator.next();
+            Ghiseu_temp_value = (Ghiseu)pair.getValue();
+            if(!Ghiseu_temp_value.equals(ghiseu)) {
+                if (Ghiseu_temp_value.Head_coada_clienti().equals(client)) {
+                    for (int i = 0; i < Ghiseu_temp_value.Head_coada_clienti().Get_nroperatiuni(); i++) {
+                        if (Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_sw_desfasurare() == true)
                             return true;
                     }
                 }
