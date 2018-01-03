@@ -34,6 +34,10 @@ public class Client
         {
             return this.timpstartexec;
         }
+        protected void Set_timpstartexec(int valueoftimpstartexec)
+        {
+            this.timpstartexec = valueoftimpstartexec;
+        }
         protected Operatiune Get_operatiune()
         {
             return this.operatiune;
@@ -92,5 +96,9 @@ public class Client
     protected void Set_timpplecare(int valueoftimpplecare)
     {
         this.timpplecare=valueoftimpplecare;
+    }
+    protected String Get_nume()
+    {
+        return this.nume;
     }
 }
