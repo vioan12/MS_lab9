@@ -11,6 +11,7 @@ public class TimpConvert
     {
         return (timp-toInt(AgentiePostala.timpdeschidere));
     }
+
     static public int toInt(String timp)
     {
         int ora,minute;
