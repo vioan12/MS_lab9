@@ -8,43 +8,46 @@ import static java.lang.Character.MAX_VALUE;
  */
 public class Simulare
 {
-    private static final int NR_CLIENTI_INAINDE_DE_DESCHIDERE = 20;
+    private static final int NR_CLIENTI_MAX = 100;
+    private static final int NR_CLIENTI_MIN = 50;
     public static AgentiePostala PostaRomana;
     public static int clock;
+    private Write W;
 
     Simulare()
     {
         Read.console();
+        W = new Write();
     }
     void start()
     {
         int int_temp;
         Client Clienti_temp[];
-        Generator G;
+        Generator G2,G_inexe;
         GenerareClient GC;
         Ghiseu Ghiseu_temp_value;
         int Ghiseu_temp_id;
-        Map.Entry pair;
-        G = new StdGenerator(TimpConvert.toInt(PostaRomana.timpdeschidere));
-        GC = new GenerareClient(G);
-        do{
-            int_temp=G.next()+1;
-        }while (int_temp>NR_CLIENTI_INAINDE_DE_DESCHIDERE);
+        G2 = new StdGenerator(NR_CLIENTI_MAX-NR_CLIENTI_MIN);
+        G_inexe = new StdGenerator(TimpConvert.toInt(PostaRomana.timpinchidere)-TimpConvert.toInt(PostaRomana.timpdeschidere));
+        GC = new GenerareClient(G_inexe);
+        int_temp=G2.next()+NR_CLIENTI_MIN;
         Clienti_temp = new Client[int_temp];
         for(int i=0;i<Clienti_temp.length; i++){
             Clienti_temp[i]= GC.generare();
         }
         clock=0;
+        W.console();
+        GC = new GenerareClient(G_inexe);
         while (clock<=TimpConvert.toInt(PostaRomana.timpinchidere)) {
             for (int i = 0; i < Clienti_temp.length; i++) {
                 for (int j = 0; j < Clienti_temp[i].Get_nroperatiuni(); j++) {
                     int index = 0;
                     int min = MAX_VALUE;
-                    Iterator iterator = PostaRomana.Get_lista_ghisee();
-                    while (iterator.hasNext()) {
-                        pair = (Map.Entry)iterator.next();
-                        Ghiseu_temp_value = (Ghiseu)pair.getValue();
-                        Ghiseu_temp_id = (int)pair.getKey();
+                    Iterator iterator2 = PostaRomana.Get_lista_ghisee();
+                    while (iterator2.hasNext()) {
+                        Map.Entry pair2 = (Map.Entry)iterator2.next();
+                        Ghiseu_temp_value = (Ghiseu)pair2.getValue();
+                        Ghiseu_temp_id = (int)pair2.getKey();
                         if (Ghiseu_temp_value.contine_operatiune_id(Clienti_temp[i].Get_operatiune_index(j).Get_operatiune().Get_id()) == true) {
                             if (Ghiseu_temp_value.Get_sizecoada_clienti() < min) {
                                 min = Ghiseu_temp_value.Get_sizecoada_clienti();
@@ -53,13 +56,15 @@ public class Simulare
                         }
                     }
                     if(PostaRomana.Get_ghisu(index)!=null) {
-                        PostaRomana.Get_ghisu(index).Push_coada_clienti(Clienti_temp[i]);
+                        if (Clienti_temp[i].Get_timpsosire() == clock) {
+                            PostaRomana.Get_ghisu(index).Push_coada_clienti(Clienti_temp[i]);
+                        }
                     }
                 }
             }
             Iterator iterator = PostaRomana.Get_lista_ghisee();
             while (iterator.hasNext()) {
-                pair = (Map.Entry) iterator.next();
+                Map.Entry pair = (Map.Entry) iterator.next();
                 Ghiseu_temp_value = (Ghiseu) pair.getValue();
                 Ghiseu_temp_id = (int) pair.getKey();
                 boolean sw;
@@ -75,6 +80,7 @@ public class Simulare
                                         Generator G_timpdesfasurareoperatiune;
                                         G_timpdesfasurareoperatiune = new StdGenerator(Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmax() - Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin() + 1);
                                         Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Set_duratatimpexec((G_timpdesfasurareoperatiune.next() + Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin()));
+                                        Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Set_timpstartexec(clock);
                                     } else {
                                         Ghiseu_temp_value.HeadDowngrade_coada_clienti();
                                     }
@@ -94,13 +100,10 @@ public class Simulare
                     }
                 }
             }
-            int_temp=G.next()+1;
-            Clienti_temp = new Client[int_temp];
-            for(int i=0;i< Clienti_temp.length; i++){
-                Clienti_temp[i]= GC.generare();
-            }
             clock++;
+            W.console();
         }
+        W.close();
     }
 
 }
