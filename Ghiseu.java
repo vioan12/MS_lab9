@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 /**
@@ -6,14 +7,12 @@ import java.util.PriorityQueue;
  */
 public class Ghiseu
 {
-    private PriorityQueue<Client> coada_clienti;
-    Comparator<Client> comparator;
+    private Queue_LinkedList coada_clienti;
     private Operatiune[] operatiuni;
 
     Ghiseu(Operatiune[] valueoflisa_operatiuni)
     {
-        comparator = new ClientComparator();
-        coada_clienti= new PriorityQueue<Client>(comparator);
+        coada_clienti= new Queue_LinkedList<Client>();
         operatiuni = new Operatiune[valueoflisa_operatiuni.length];
         for(int i=0; i<operatiuni.length; i++) {
             operatiuni[i]=valueoflisa_operatiuni[i];
@@ -21,27 +20,28 @@ public class Ghiseu
     }
     protected int Get_sizecoada_clienti()
     {
-        return coada_clienti.size();
+        return coada_clienti.Size();
+    }
+    protected Queue_LinkedList<Client> Get_coada_clienti()
+    {
+        return coada_clienti;
     }
     protected void Push_coada_clienti(Client client)
     {
-        coada_clienti.add(client);
+        coada_clienti.Add(client);
     }
     protected void Pop_coada_clienti()
     {
-        coada_clienti.poll();
+        coada_clienti.Remove();
     }
     protected Client Head_coada_clienti()
     {
-        return coada_clienti.peek();
+        return (Client)coada_clienti.Value();
     }
     protected void HeadDowngrade_coada_clienti()
     {
-        if(coada_clienti.size()>1) {
-            Client head;
-            head = Head_coada_clienti();
-            Pop_coada_clienti();
-            Push_coada_clienti(head);
+        if(coada_clienti.Size()>1) {
+            coada_clienti.HeadDowngrade();
         }
     }
     protected boolean contine_operatiune_id(int id)
