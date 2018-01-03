@@ -95,7 +95,7 @@ public class GenerareClient
         int_temp1 = G_nume.next(); //Nume
         int_temp2 = G_prenume.next(); //Prenume
         int_temp4 = G_timpsosire.next(); //Timpul de sosoire [int]
-        int_temp3 = G_operatiuni.next(); //nrOperatiuni
+        int_temp3 = G_operatiuni.next()+1; //nrOperatiuni
         Operatiuni_temp =  new Operatiune[int_temp3]; //Operatiunile
         for(int i=0; i<Operatiuni_temp.length; i++){
             int_temp3 = G_operatiuni.next(); //Indicele Operatiunii generate
