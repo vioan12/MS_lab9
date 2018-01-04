@@ -27,7 +27,7 @@ public class Write
         Client Client_temp;
         Map.Entry pair;
         Iterator iterator;
-        Queue_LinkedList<Client> iterator2;
+        Iterator iterator2;
         try {
             iterator = Simulare.PostaRomana.Get_lista_ghisee();
             out.write("[" + Simulare.clock + "]\n");
@@ -37,8 +37,8 @@ public class Write
                 Ghiseu_temp_id = (int) pair.getKey();
                 out.write("Ghiseul " + Ghiseu_temp_id + ":\n");
                 iterator2 = Ghiseu_temp_value.Get_coada_clienti();
-                while (iterator2.Next()!=null) {
-                    Client_temp = (Client) iterator2.Value();
+                while (iterator2.hasNext()) {
+                    Client_temp = (Client) iterator2.next();
                     out.write("     " + Client_temp.Get_nume() +"("+Client_temp.Get_timpsosire()+")"+ ":\n");
                     for (int i = 0; i < Client_temp.Get_nroperatiuni(); i++) {
                         out.write("             " + i + ":" + Client_temp.Get_operatiune_index(i).Get_operatiune().Get_id() + " ");
@@ -54,7 +54,6 @@ public class Write
                         }
                         out.write("\n");
                     }
-                    iterator2 = iterator2.Next();
                 }
             }
             out.write("------------------------------------------------------------------------------------------------\n\n");
