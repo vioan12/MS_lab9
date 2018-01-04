@@ -1,6 +1,8 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import static java.lang.Character.MIN_VALUE;
+
 /**
  * Created by ioan on 12/29/17.
  */
@@ -8,6 +10,7 @@ public class Ghiseu
 {
     private LinkedList<Client> coada_clienti;
     private Operatiune[] operatiuni;
+    private int lungimemaxima, timpuldeutilizare, numarulmediuclienti;
 
     Ghiseu(Operatiune[] valueoflisa_operatiuni)
     {
@@ -16,6 +19,9 @@ public class Ghiseu
         for(int i=0; i<operatiuni.length; i++) {
             operatiuni[i]=valueoflisa_operatiuni[i];
         }
+        lungimemaxima = MIN_VALUE;
+        timpuldeutilizare = 0;
+        numarulmediuclienti = 0;
     }
     protected int Get_sizecoada_clienti()
     {
@@ -25,9 +31,24 @@ public class Ghiseu
     {
         return coada_clienti.iterator();
     }
+    protected int Get_timpuldeutilizare()
+    {
+        return this.timpuldeutilizare;
+    }
+    protected int Get_lungimemaxima()
+    {
+        return this.lungimemaxima;
+    }
+    protected int Get_numarulmediuclienti()
+    {
+        return this.numarulmediuclienti;
+    }
     protected void Push_coada_clienti(Client client)
     {
         coada_clienti.add(client);
+        if(coada_clienti.size() > lungimemaxima){
+            lungimemaxima = coada_clienti.size();
+        }
     }
     protected void Pop_coada_clienti()
     {
@@ -59,5 +80,12 @@ public class Ghiseu
             }
         }
         return sw;
+    }
+    protected void update()
+    {
+        if(coada_clienti.size()>0){
+            timpuldeutilizare++;
+            numarulmediuclienti = numarulmediuclienti + coada_clienti.size();
+        }
     }
 }
