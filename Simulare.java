@@ -12,6 +12,7 @@ public class Simulare
     private static final int NR_CLIENTI_MIN = 50;
     public static AgentiePostala PostaRomana;
     public static int clock;
+    public static Client Clienti_temp[];
     private Write W;
 
     Simulare()
@@ -22,7 +23,6 @@ public class Simulare
     void start()
     {
         int int_temp;
-        Client Clienti_temp[];
         Generator G2,G_inexe;
         GenerareClient GC;
         Ghiseu Ghiseu_temp_value;
@@ -114,10 +114,12 @@ public class Simulare
 
                     }
                 }
+                Ghiseu_temp_value.update();
             }
             clock++;
             W.console();
         }
+        W.console_end();
         W.close();
     }
 
