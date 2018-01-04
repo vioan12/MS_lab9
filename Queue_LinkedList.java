@@ -35,35 +35,35 @@ public class Queue_LinkedList<E>
     public void Add(E value)
     {
         Queue_LinkedList<E> p;
-        p=this;
-        if(p.Next()!=null) {
+        p = this;
+        int size = p.Size();
+        if (size > 1) {
             do {
                 p = p.Next();
             } while (p.Next() != null);
             p.next = new Queue_LinkedList<E>();
             p = p.next;
+            p.value = value;
         }
-        p.value = value;
-    }
-    public void Remove()
-    {
-        Queue_LinkedList<E> p;
-        p=this;
-        if(p.Next()!=null) {
-            p = p.Next();
-        } else {
-            value =  null;
+        if (size == 1) {
+            p.next = new Queue_LinkedList<E>();
+            p = p.next;
+            p.value = value;
         }
-
+        if (size == 0) {
+            p.value = value;
+        }
     }
-    public void HeadDowngrade()
+    public Queue_LinkedList<E> HeadDowngrade()
     {
         Queue_LinkedList<E> p,q;
         p=this;
-        if(p.Next()!=null) {
-            q = p.Next();
-            p.next = q.Next();
+        if(p.next!=null) {
+            q = p.next;
+            p.next = q.next;
             q.next = p;
+            return q;
         }
+        return p;
     }
 }
