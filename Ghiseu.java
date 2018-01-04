@@ -1,6 +1,6 @@
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 
 /**
  * Created by ioan on 12/29/17.
@@ -32,7 +32,7 @@ public class Ghiseu
     }
     protected void Pop_coada_clienti()
     {
-        coada_clienti.Remove();
+        coada_clienti = coada_clienti.Next();
     }
     protected Client Head_coada_clienti()
     {
@@ -41,7 +41,7 @@ public class Ghiseu
     protected void HeadDowngrade_coada_clienti()
     {
         if(coada_clienti.Size()>1) {
-            coada_clienti.HeadDowngrade();
+            coada_clienti = coada_clienti.HeadDowngrade();
         }
     }
     protected boolean contine_operatiune_id(int id)
