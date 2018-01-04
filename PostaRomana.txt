@@ -1,0 +1,43 @@
+08:00
+16:00
+5
+preluare colet
+407
+2
+7
+livrare colet
+507
+3
+8
+scrisori recomandate
+365
+5
+10
+plati facturi
+689
+2
+5
+mandate postale
+378
+10
+20
+5
+24
+2
+407
+507
+25
+2
+407
+507
+9
+2
+365
+378
+10
+1
+689
+11
+2
+365
+507
