@@ -33,6 +33,9 @@ public class Ghiseu
     protected void Pop_coada_clienti()
     {
         coada_clienti = coada_clienti.Next();
+        if(coada_clienti == null){
+            coada_clienti= new Queue_LinkedList<Client>();
+        }
     }
     protected Client Head_coada_clienti()
     {
