@@ -1,4 +1,3 @@
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -7,12 +6,12 @@ import java.util.LinkedList;
  */
 public class Ghiseu
 {
-    private Queue_LinkedList coada_clienti;
+    private LinkedList<Client> coada_clienti;
     private Operatiune[] operatiuni;
 
     Ghiseu(Operatiune[] valueoflisa_operatiuni)
     {
-        coada_clienti= new Queue_LinkedList<Client>();
+        coada_clienti= new LinkedList<Client>();
         operatiuni = new Operatiune[valueoflisa_operatiuni.length];
         for(int i=0; i<operatiuni.length; i++) {
             operatiuni[i]=valueoflisa_operatiuni[i];
@@ -20,31 +19,35 @@ public class Ghiseu
     }
     protected int Get_sizecoada_clienti()
     {
-        return coada_clienti.Size();
+        return coada_clienti.size();
     }
-    protected Queue_LinkedList<Client> Get_coada_clienti()
+    protected Iterator Get_coada_clienti()
     {
-        return coada_clienti;
+        return coada_clienti.iterator();
     }
     protected void Push_coada_clienti(Client client)
     {
-        coada_clienti.Add(client);
+        coada_clienti.add(client);
     }
     protected void Pop_coada_clienti()
     {
-        coada_clienti = coada_clienti.Next();
-        if(coada_clienti == null){
-            coada_clienti= new Queue_LinkedList<Client>();
-        }
+        coada_clienti.remove();
     }
     protected Client Head_coada_clienti()
     {
-        return (Client)coada_clienti.Value();
+        if(Get_sizecoada_clienti()>0) {
+            return coada_clienti.element();
+        } else {
+            return null;
+        }
     }
     protected void HeadDowngrade_coada_clienti()
     {
-        if(coada_clienti.Size()>1) {
-            coada_clienti = coada_clienti.HeadDowngrade();
+        if(coada_clienti.size()>1) {
+            Client Client_temp;
+            Client_temp = (Client) coada_clienti.element();
+            coada_clienti.remove();
+            coada_clienti.add(1, Client_temp);
         }
     }
     protected boolean contine_operatiune_id(int id)
