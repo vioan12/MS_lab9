@@ -23,7 +23,11 @@ public class TimpConvert
     {
         String String_temp1,String_temp2;
         String_temp1 = String.valueOf(timp / 60);
-        String_temp2 = String.valueOf(timp % 60);
+        if((timp % 60)/10 == 0) {
+            String_temp2 = "0" + String.valueOf(timp % 60);
+        }else{
+            String_temp2 = String.valueOf(timp % 60);
+        }
         return (String_temp1+":"+String_temp2);
     }
 }
