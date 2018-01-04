@@ -37,7 +37,6 @@ public class Simulare
         }
         clock=0;
         W.console();
-        GC = new GenerareClient(G_inexe);
         while (clock<=TimpConvert.toInt(PostaRomana.timpinchidere)) {
             for (int i = 0; i < Clienti_temp.length; i++) {
                 for (int j = 0; j < Clienti_temp[i].Get_nroperatiuni(); j++) {
@@ -57,7 +56,18 @@ public class Simulare
                     }
                     if(PostaRomana.Get_ghisu(index)!=null) {
                         if (Clienti_temp[i].Get_timpsosire() == clock) {
-                            PostaRomana.Get_ghisu(index).Push_coada_clienti(Clienti_temp[i]);
+                            boolean sw = true;
+                            Client Client_temp2;
+                            Iterator iterator3 = PostaRomana.Get_ghisu(index).Get_coada_clienti();
+                            while (iterator3.hasNext()) {
+                                Client_temp2 = (Client) iterator3.next();
+                                if (Client_temp2.equals(Clienti_temp[i])) {
+                                    sw = false;
+                                }
+                            }
+                            if(sw == true) {
+                                PostaRomana.Get_ghisu(index).Push_coada_clienti(Clienti_temp[i]);
+                            }
                         }
                     }
                 }
@@ -69,6 +79,7 @@ public class Simulare
                 Ghiseu_temp_id = (int) pair.getKey();
                 boolean sw;
                 sw = true;
+                boolean sw2 = false;
                 if (Ghiseu_temp_value.Head_coada_clienti() != null) {
                     for (int i = 0; i < Ghiseu_temp_value.Head_coada_clienti().Get_nroperatiuni(); i++) {
                         if (Ghiseu_temp_value.contine_operatiune_id(Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_id()) == true) { //Ghiseul poate efectua operatiunea i a Clientului
@@ -81,14 +92,16 @@ public class Simulare
                                         G_timpdesfasurareoperatiune = new StdGenerator(Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmax() - Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin() + 1);
                                         Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Set_duratatimpexec((G_timpdesfasurareoperatiune.next() + Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_operatiune().Get_timpmin()));
                                         Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Set_timpstartexec(clock);
+                                        sw2 = true;
                                     } else {
                                         Ghiseu_temp_value.HeadDowngrade_coada_clienti();
                                     }
                                 } else {
                                     if (Ghiseu_temp_id == Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_id_Ghiseu()) { //Operatiunea este in desfasurare la Ghiseul curent
                                         if (Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_timpstartexec() + Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Get_duratatimpexec() <= clock) {
-                                        } else {
-                                            Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Executataoperatiune();
+                                            if (sw2 == false) {
+                                                Ghiseu_temp_value.Head_coada_clienti().Get_operatiune_index(i).Executataoperatiune();
+                                            }
                                         }
                                     }
                                 }
@@ -96,7 +109,9 @@ public class Simulare
                         }
                     }
                     if (sw == true) { //Toate operatiunile au fost executate
+                        Ghiseu_temp_value.Head_coada_clienti().Set_timpplecare(clock);
                         Ghiseu_temp_value.Pop_coada_clienti();
+
                     }
                 }
             }
